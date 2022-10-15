@@ -1,0 +1,91 @@
+from tkinter import *   #import tkinter
+from tkinter.ttk import *
+window = Tk()   #set main window name
+window.geometry("700x200")  #set window size
+
+
+def display():  #set up sub window
+    list_display = Toplevel(window)
+    list_display.title("all possible outcomes") #title second window
+    list_display.geometry("400x600")    #set second window size
+
+    giver = ['an elf ', 'A group of bankers ', 'A old beggar ', 'The Dwarven council ',
+             'The Crime boss ', ]   #list of quest givers
+    body = ['find a missing necklace ', 'clear out a group of bandits ', 'sabotage a political enemy ',
+            'steal a jade octopus ', 'rescue an archmage '] #list of main quest
+    twist = ['you have a time limit of three days ', 'you have to do it in secret ',
+             'it is in a land plagued with disease ', 'another team has the same job ',
+             'it is protected by a very strong foe']    #list of the quest twists
+    giver_box = Listbox(list_display, width=50) #sets up the list box for quest,giver,and twist
+    giver_box.pack(pady=10)
+    for item in giver:
+        giver_box.insert(END, item)
+    body_box = Listbox(list_display, width=50)
+    body_box.pack(pady=10)
+    for item in body:
+        body_box.insert(END, item)
+    twist_box = Listbox(list_display, width=50)
+    twist_box.pack(pady=10)
+    for item in twist:
+        twist_box.insert(END, item)
+
+    Button(list_display, text="Return", command=list_display.destroy).pack()    #makes a button to exit list_display
+
+
+window.title("Random Quest Generator")  #sets up the main windows title
+
+Giver_button = Button(window, text="Quest Giver")   #creates all the buttons
+Body_button = Button(window, text="Quest Objective")
+Twist_button = Button(window, text="Quest Twist")
+option_button = Button(window, text="Press here to see all possible results")
+exit_button = Button(window, text="click here to exit")
+
+label1 = Label(window, text="click Quest Giver")    #creates all the labels
+label2 = Label(window, text="has hired you to ")
+label3 = Label(window, text="click Quest Objective")
+label4 = Label(window, text="but ")
+label5 = Label(window, text="click Quest Twist")
+
+Giver_button.grid(row=0, column=0)  #sets the postions of all the buttons and labels
+Body_button.grid(row=0, column=2)
+Twist_button.grid(row=0, column=4)
+label1.grid(row=1, column=0)
+label2.grid(row=1, column=1)
+label3.grid(row=1, column=2)
+label4.grid(row=1, column=3)
+label5.grid(row=1, column=4)
+option_button.grid(row=2, column=2)
+exit_button.grid(row=3, column=2)
+
+
+def giver_function():   #sets functions for the buttons to call to
+    import random
+    giver = ['an elf ', 'A group of bankers ', 'A old beggar ', 'The Dwarven council ',
+             'The Crime boss ', ]  # Giver is the list of quest givers
+    random_giver = random.choice(giver)
+    label1.config(text=random_giver)
+
+
+def body_function():
+    import random
+    body = ['find a missing necklace ', 'clear out a group of bandits ', 'sabotage a political enemy ',
+            'steal a jade octopus ', 'rescue an archmage ']  # Body list of the main part of the quest
+    random_body = random.choice(body)
+    label3.config(text=random_body)
+
+
+def twist_function():
+    import random
+    twist = ['you have a time limit of three days ', 'you have to do it in secret ',
+             'it is in a land plagued with disease ', 'another team has the same job ',
+             'it is protected by a very strong foe']  # Twist list of circumstances around the quest
+    random_twist = random.choice(twist)
+    label5.config(text=random_twist)
+
+
+Giver_button.configure(command=giver_function)  #configuers what each button does
+Body_button.configure(command=body_function)
+Twist_button.configure(command=twist_function)
+option_button.configure(command=display)
+exit_button.configure(command=window.destroy)
+window.mainloop()
